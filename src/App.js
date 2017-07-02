@@ -9,7 +9,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = { lista: [], nome: '', email: '', senha: '' };
-    this.enviaForm = this.enviaForm.bind(this);  
+    this.enviaForm = this.enviaForm.bind(this);
     this.setNome = this.setNome.bind(this);
     this.setEmail = this.setEmail.bind(this);
     this.setSenha = this.setSenha.bind(this);
@@ -29,34 +29,36 @@ class App extends Component {
   }
 
   enviaForm(evento) {
-    evento.preventDefault();  
+    evento.preventDefault();
 
     $.ajax({
       url: 'http://cdc-react.herokuapp.com/api/autores',
-      contentType: 'aplication/json',
+      contentType: "application/json",
       dataType: 'json',
-      type: '',
-      data: JSON.stringify({nome:this.state.nome, email: this.state.email, senha:this.state.senha }),
-      sucess: function(resposta){
-        console.log("deu bom")
-      },
-      error: function(resposta){
-        console.log("deu ruim")
-      } 
-    }); 
+      type: 'post',
+      data: JSON.stringify({ nome: this.state.nome, email: this.state.email, senha: this.state.senha }),
+      sucess: function (resposta) {
+        console.log("deu bom");
+        this.setState({ lista: resposta });
+      }.bind(this),
+      error: function (resposta) {
+        console.log("deu ruim");
+        console.log(resposta);
+      }
+    });
   }
 
-  setNome(evento){
-    this.setState({nome:evento.target.value});
+  setNome(evento) {
+    this.setState({ nome: evento.target.value });
   }
 
-  setEmail(evento){
-    this.setState({email:evento.target.value});
+  setEmail(evento) {
+    this.setState({ email: evento.target.value });
   }
 
 
-  setSenha(evento){
-    this.setState({senha:evento.target.value});
+  setSenha(evento) {
+    this.setState({ senha: evento.target.value });
   }
 
 
@@ -96,7 +98,7 @@ class App extends Component {
                 </div>
                 <div className="pure-control-group">
                   <label htmlFor="senha">Senha</label>
-                  <input id="senha" type="password" name="senha" value={this.state.senha} onChange={this.setSenha}/>
+                  <input id="senha" type="password" name="senha" value={this.state.senha} onChange={this.setSenha} />
                 </div>
                 <div className="pure-control-group">
                   <label></label>
