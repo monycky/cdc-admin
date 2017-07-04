@@ -3,7 +3,7 @@ import $ from 'jquery';
 import InputCostumized from './components/InputCostumized';
 
 
-export class FormularioAutor extends Component{
+class FormularioAutor extends Component{
     constructor() {
         super();
         this.state = {nome: "", email: "", senha: "" };
@@ -24,7 +24,7 @@ export class FormularioAutor extends Component{
       data: JSON.stringify({ nome: this.state.nome, email: this.state.email, senha: this.state.senha }),
       success: function (resposta) {
         console.log("deu bom");
-        this.setState({ lista: resposta });
+        this.props.callbackAtualizaListagem(resposta);
       }.bind(this),
       error: function(resposta) {
         console.log("deu ruim");
@@ -66,10 +66,39 @@ export class FormularioAutor extends Component{
     }
 }
 
-export class TabelaAutores extends Component{
-    constructor() {
+class TabelaAutores extends Component{
+    render(){
+        return(
+            <div>
+              <table className="pure-table">
+                <thead>
+                  <tr>
+                    <th>Nome</th>
+                    <th>email</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {this.props.lista.map(function(autor) {
+                    return (
+                      <tr>
+                        <td>{autor.nome}</td>
+                        <td>{autor.email}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+        );
+    }
+
+}
+
+export default class AutorBox extends Component{
+ constructor() {
     super();
     this.state = { lista: []};
+    this.atualizaListagem = this.atualizaListagem.bind(this);
    
   }
 
@@ -82,27 +111,16 @@ export class TabelaAutores extends Component{
       }.bind(this)
     });
   }
+
+    atualizaListagem(novaLista){
+            this.setState({lista: novaLista});
+    }
+
     render(){
         return(
             <div>
-              <table className="pure-table">
-                <thead>
-                  <tr>
-                    <th>Nome</th>
-                    <th>email</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {this.state.lista.map(function(autor) {
-                    return (
-                      <tr>
-                        <td>{autor.nome}</td>
-                        <td>{autor.email}</td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
+            <FormularioAutor callbackAtualizaListagem={this.atualizaListagem}/>
+            <TabelaAutores lista={this.state.lista}/>
             </div>
         );
     }
