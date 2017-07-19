@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import $ from 'jquery';
 import InputCostumized from './components/InputCostumized';
 import PubSub from 'pubsub-js';
+import TratadorErros from './TratadorErros';
 
 
 class FormularioAutor extends Component{
@@ -26,9 +27,10 @@ class FormularioAutor extends Component{
       success: function (novaLista) {
         PubSub.publish('atualiza-lista-autores', novaLista);
       }.bind(this),
-      error: function(novaLista) {
-        console.log("deu ruim");
-        console.log(novaLista);
+      error: function(resposta) {
+        if(resposta.status === 400){
+          new TratadorErros().publicaErros(resposta.responseJSON);
+        }         
       }
     });
   }
