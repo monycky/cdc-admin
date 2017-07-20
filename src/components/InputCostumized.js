@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import PubSub from 'pubsub-js';
+
 
 export default class InputCostumized extends Component {
     
@@ -16,4 +18,10 @@ export default class InputCostumized extends Component {
             </div>
         );
     }
+
+     componentDidMount(){
+       PubSub.subscribe('erro-validacao', function(topico, erro){
+        this.setState({msgErro: erro.defaultMessage})
+       }.bind(this));
+  }
 } 
