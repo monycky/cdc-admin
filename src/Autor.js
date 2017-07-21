@@ -26,11 +26,15 @@ class FormularioAutor extends Component{
       data: JSON.stringify({ nome: this.state.nome, email: this.state.email, senha: this.state.senha }),
       success: function (novaLista) {
         PubSub.publish('atualiza-lista-autores', novaLista);
+        this.setState({nome: '', email: '', senha: ''});
       }.bind(this),
       error: function(resposta) {
         if(resposta.status === 400){
           new TratadorErros().publicaErros(resposta.responseJSON);
         }         
+      },
+      beforeSend:function(){
+        PubSub.publish("limpa-erros", {});
       }
     });
   }
@@ -53,7 +57,7 @@ class FormularioAutor extends Component{
               <form
                 className="pure-form pure-form-aligned" onSubmit={this.enviaForm} method="post" >
                 <div className="pure-control-group">
-                  <InputCostumized id="nome" type="text" name="nome" value={this.state.name} onChange={this.setNome} label="Nome" />
+                  <InputCostumized id="nome" type="text" name="nome" value={this.state.nome} onChange={this.setNome} label="Nome" />
                   <InputCostumized id="email" type="mail" name="email" value={this.state.email} onChange={this.setEmail} label="Email" />
                   <InputCostumized id="senha" type="password" name="senha" value={this.state.senha} onChange={this.setSenha} label="Senha" />
                 </div>
