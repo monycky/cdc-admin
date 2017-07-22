@@ -7,7 +7,7 @@
     "pubsub-js": "^1.5.7",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "react-router": "^4.1.2",
+    "react-router": "^2.8.0",
     "react-scripts": "1.0.9"
   },
   "globals": {
