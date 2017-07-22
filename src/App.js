@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './css/pure-min.css';
 import './css/side-menu.css';
 import $ from 'jquery';
+import {Link} from 'react-router'
 import AutorBox from './Autor'
 
 class App extends Component {
@@ -18,13 +19,13 @@ class App extends Component {
 
             <ul className="pure-menu-list">
               <li className="pure-menu-item">
-                <a href="#" className="pure-menu-link">Home</a>
+                <Link to="/" className="pure-menu-link">Home</Link>
               </li>
               <li className="pure-menu-item">
-                <a href="#" className="pure-menu-link">Autores</a>
+                <Link to="/autor" className="pure-menu-link">Autores</Link>
               </li>
               <li className="pure-menu-item">
-                <a href="#" className="pure-menu-link">Livros</a>
+                <Link to="#" className="pure-menu-link">Livros</Link>
               </li>
 
             </ul>
@@ -33,10 +34,9 @@ class App extends Component {
 
         <div id="main">
           <div className="header">
-            <h1>Cadastro de Autores</h1>
+            <h1>Bem vindo ao Sistema</h1>
           </div>
           <div className="content" id="content">
-            <AutorBox />
           </div>
         </div>
 
