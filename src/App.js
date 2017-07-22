@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './css/pure-min.css';
 import './css/side-menu.css';
 import $ from 'jquery';
-import {Link} from 'react-router'
+import { Link } from 'react-router'
 import AutorBox from './Autor'
 
 class App extends Component {
@@ -25,7 +25,7 @@ class App extends Component {
                 <Link to="/autor" className="pure-menu-link">Autores</Link>
               </li>
               <li className="pure-menu-item">
-                <Link to="#" className="pure-menu-link">Livros</Link>
+                <Link to="/livro" className="pure-menu-link">Livros</Link>
               </li>
 
             </ul>
@@ -33,11 +33,7 @@ class App extends Component {
         </div>
 
         <div id="main">
-          <div className="header">
-            <h1>Bem vindo ao Sistema</h1>
-          </div>
-          <div className="content" id="content">
-          </div>
+          {this.props.children}
         </div>
 
       </div>
